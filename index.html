@@ -81,7 +81,6 @@
                         let json_object = JSON.stringify(XL_row_object);
                         json = JSON.parse(json_object); 
                     });
-                    console.log(json);
                     json.forEach(object => {
                         let co;
                         if (object.COLORADO === 'Y') { co = '_CO'} else { co ='';};
@@ -92,7 +91,6 @@
                         `;
                         tdSLPH.insertAdjacentHTML('afterend', slphInsert);
                     })
-                    console.log(json);
                 });
             </script>    
     </body>
