@@ -1,49 +1,8 @@
 <html>
     <head>
         <title>SL MAP TOOL</title>
-        <style>
-            .input {
-                margin: 2vh 0;
-            }
-            #container {
-                width: 100%;
-                margin: 0 auto;
-                text-align: center;
-                font-family: 'Open Sans', sans-serif;
-            }
-            .input span, .output span {
-                display: block;
-                margin-bottom: 6vh;
-                background-color: #ccc;
-            }
-            .input textarea,.output textarea{
-                width: 95vw;
-                height: 40vh;
-            }
-            .buttons {
-                text-align: center;
-                margin: 3vh 0 3vh 0;
-            }
-            .buttons button {
-                padding: 2vh 10.5vw 2vh 10.5vw;
-            }
-
-             
-            td {
-                width: 31.6vw;
-                text-align: center;
-            }
-            tr:first-child {
-                font-weight: bold;
-                text-align: center;
-            }
-            tr:nth-child(even){
-                background: #D3D3D3;
-            }
-        </style>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
-        <script src="js/jquery.js"> </script>
-        <script lang="javascript" src="js/xlsx.full.min.js"></script>
+        <link href="css/stylesheet.css" rel="stylesheet">
     </head> 
     <body>
         <div id ="container">
@@ -55,43 +14,13 @@
                 <button class="format">FORMAT</button>
                 
             </div>
-            <div class="output">
-                <span>OUTPUT:</span>
-            </div>
         </div>
         <table align="center">
             <tr id ="begin">
-                <td>BILLCODE_KEYCODE2</td>
-                <td>SL_INITIAL</td>
-                <td>PH_INITIAL</td>
+                <td>*FILE WILL AUTOMATICALLY DOWNLOAD AFTER CLICKING FORMAT*</td>
             </tr>
         </table>
-        </body>
-        <script>
-                //set reusable variables
-                const formatBtn =  document.querySelector('.format');
-                const tdSLPH = document.querySelector("#begin");
-                let json;
-                // removes anchors from the input and puts it in the output
-                formatBtn.addEventListener('click', () => {
-                    let input =  document.querySelector('.input textarea').value;
-                    let workbook = XLSX.read(input, { type: 'binary'});
-                    workbook.SheetNames.forEach(sheetName => {
-                        let XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
-                        let json_object = JSON.stringify(XL_row_object);
-                        json = JSON.parse(json_object); 
-                    });
-                    json.forEach(object => {
-                        let co;
-                        if (object.COLORADO === 'Y') { co = '_CO'} else { co ='';};
-                        const slphInsert = `
-                        <tr><td>${object.BILLCODE}_#${co}</td><td>${object.SL_ECHO2}</td><td>${object.PH_ECHO2}</td></tr>
-                        <tr><td>${object.BILLCODE}_#${co}</td><td>${object.SL_ECHO}</td><td>${object.PH_ECHO}</td></tr>
-                        <tr><td>${object.BILLCODE}_#${co}</td><td>${object.SL_INITIAL}</td><td>${object.PH_INITIAL}</td></tr>
-                        `;
-                        tdSLPH.insertAdjacentHTML('afterend', slphInsert);
-                    })
-                });
-            </script>    
+    <script lang="javascript" src="js/xlsx.full.min.js"></script>
+    <script lang="javascript" src="js/script.js"></script>
     </body>
 </html>
